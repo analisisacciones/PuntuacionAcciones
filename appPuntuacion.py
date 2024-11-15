@@ -5,7 +5,7 @@ import yfinance as yf
 import streamlit as st
 
 # Cargar el archivo de Excel desde GitHub
-excel_url = "https://raw.githubusercontent.com/analisisacciones/PuntuacionAcciones/main/Análisis%20acciones.xlsx"
+excel_url = "https://raw.githubusercontent.com/analisisacciones/PuntuacionAcciones/main/Analisis_acciones.xlsx"
 response = requests.get(excel_url)
 
 # Guardar el archivo temporalmente
