@@ -15,12 +15,11 @@ with open("Analisis_acciones.xlsx", "wb") as file:
 workbook = openpyxl.load_workbook("Analisis_acciones.xlsx")
 sheet = workbook.active
 
-# Función para obtener y dar formato a los datos financieros
+# Función para obtener los datos
 def obtener_datos(ticker_symbol):
     ticker = yf.Ticker(ticker_symbol)
     data = ticker.info
 
-    # Extrae los datos de interés y los devuelve como una lista de valores
     datos = [
         data.get('shortName', 'N/A'),
         data.get('symbol', 'N/A'),
@@ -39,7 +38,6 @@ def obtener_datos(ticker_symbol):
         round(data.get('targetMeanPrice', 'N/A'), 2) if data.get('targetMeanPrice') else "N/A",
         ticker.history(period="1d").index[-1].strftime('%Y-%m-%d') if not ticker.history(period="1d").empty else "N/A"
     ]
-    
     return datos
 
 # Interfaz en Streamlit
@@ -52,31 +50,13 @@ def main():
         datos = obtener_datos(ticker_symbol)
 
         # Actualizar las celdas correspondientes del Excel
-        sheet['B2'] = datos[0]
-        sheet['B3'] = datos[1]
-        sheet['B4'] = datos[2]
-        sheet['B5'] = datos[3]
-        sheet['B6'] = datos[4]
-        sheet['B7'] = datos[5]
-        sheet['B8'] = datos[6]
-        sheet['B9'] = datos[7]
-        sheet['B10'] = datos[8]
-        sheet['B11'] = datos[9]
-        sheet['B12'] = datos[10]
-        sheet['B13'] = datos[11]
-        sheet['B14'] = datos[12]
-        sheet['B15'] = datos[13]
-        sheet['B16'] = datos[14]
-        sheet['B17'] = datos[15]
+        for i, valor in enumerate(datos):
+            sheet[f'B{i + 2}'] = valor
 
         # Guardar el archivo con los cambios
         workbook.save("Analisis_acciones.xlsx")
 
-        # Reabrir el archivo para que se calculen las fórmulas
-        workbook = openpyxl.load_workbook("Analisis_acciones.xlsx", data_only=True)
-        sheet = workbook.active
-
-        # Mostrar el valor de la celda AY60 (que es el cálculo)
+        # Mostrar el valor de la celda AY60 (cálculo)
         puntaje_compra = sheet['AY60'].value
         st.write(f"Puntuación de compra de la empresa: {puntaje_compra}")
 
