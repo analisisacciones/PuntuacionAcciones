@@ -51,37 +51,41 @@ def main():
         datos = obtener_datos(ticker_symbol)
 
         # Actualizar las celdas correspondientes del Excel con los datos
-        sheet['B2'] = datos[0]
-        sheet['B3'] = datos[1]
-        sheet['B4'] = datos[2]
-        sheet['B5'] = datos[3]
-        sheet['B6'] = datos[4]
-        sheet['B7'] = datos[5]
-        sheet['B8'] = datos[6]
-        sheet['B9'] = datos[7]
-        sheet['B10'] = datos[8]
-        sheet['B11'] = datos[9]
-        sheet['B12'] = datos[10]
-        sheet['B13'] = datos[11]
-        sheet['B14'] = datos[12]
-        sheet['B15'] = datos[13]
-        sheet['B16'] = datos[14]
-        sheet['B17'] = datos[15]  # Rellenar B17 con la última fecha de actualización
+        try:
+            sheet['B2'] = datos[0]
+            sheet['B3'] = datos[1]
+            sheet['B4'] = datos[2]
+            sheet['B5'] = datos[3]
+            sheet['B6'] = datos[4]
+            sheet['B7'] = datos[5]
+            sheet['B8'] = datos[6]
+            sheet['B9'] = datos[7]
+            sheet['B10'] = datos[8]
+            sheet['B11'] = datos[9]
+            sheet['B12'] = datos[10]
+            sheet['B13'] = datos[11]
+            sheet['B14'] = datos[12]
+            sheet['B15'] = datos[13]
+            sheet['B16'] = datos[14]
+            sheet['B17'] = datos[15]  # Rellenar B17 con la última fecha de actualización
 
-        # Guardar el archivo con los cambios
-        workbook.save("Analisis_acciones_actualizado.xlsx")
+            # Guardar el archivo con los cambios
+            workbook.save("Analisis_acciones_actualizado.xlsx")
 
-        # Imprimir los valores desde la celda B2 hasta la B17
-        for row in range(2, 18):
-            st.write(f"Valor en B{row}: {sheet[f'B{row}'].value}")
+            # Imprimir los valores desde la celda B2 hasta la B17
+            for row in range(2, 18):
+                st.write(f"Valor en B{row}: {sheet[f'B{row}'].value}")
 
-        # Reabrir el archivo con openpyxl para leer el valor calculado de AY60 (no la fórmula)
-        workbook = openpyxl.load_workbook("Analisis_acciones_actualizado.xlsx", data_only=True)
-        sheet = workbook.active
+            # Reabrir el archivo con openpyxl para leer el valor calculado de AY60 (no la fórmula)
+            workbook = openpyxl.load_workbook("Analisis_acciones_actualizado.xlsx", data_only=True)
+            sheet = workbook.active
 
-        # Leer el valor de la celda AY60
-        puntaje_compra = sheet['AY60'].value
-        st.write(f"Puntuación de compra de la empresa: {puntaje_compra}")
+            # Leer el valor de la celda AY60
+            puntaje_compra = sheet['AY60'].value
+            st.write(f"Puntuación de compra de la empresa: {puntaje_compra}")
+
+        except Exception as e:
+            st.error(f"Error al procesar los datos: {e}")
 
 if __name__ == "__main__":
     main()
