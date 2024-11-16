@@ -67,10 +67,18 @@ def main():
         sheet['B14'] = datos[12]
         sheet['B15'] = datos[13]
         sheet['B16'] = datos[14]
-        sheet['B17'] = datos[15]
+        sheet['B17'] = datos[15]  # Rellenar B17 con la última fecha de actualización
 
         # Guardar el archivo con los cambios
         workbook.save("Analisis_acciones_actualizado.xlsx")
+
+        # Imprimir los valores desde la celda B2 hasta la B17
+        for row in range(2, 18):
+            st.write(f"Valor en B{row}: {sheet[f'B{row}'].value}")
+
+        # Reabrir el archivo con openpyxl para leer el valor calculado de AY60 (no la fórmula)
+        workbook = openpyxl.load_workbook("Analisis_acciones_actualizado.xlsx", data_only=True)
+        sheet = workbook.active
 
         # Leer el valor de la celda AY60
         puntaje_compra = sheet['AY60'].value
