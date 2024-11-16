@@ -1,4 +1,3 @@
-ues esos datos se sacan de este codigo que saca los datos de yfinance, mira te paso el codigo que saca los datos de yfinance, integrame los dos codigos en uno para que funcione. codigo:                                                                                                                                                                                import yfinance as yf
 import streamlit as st
 
 # Función para obtener y formatear los datos financieros
