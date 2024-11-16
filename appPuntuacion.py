@@ -1,10 +1,9 @@
 import openpyxl
 import requests
-import os
 import yfinance as yf
 import streamlit as st
 
-# Cargar el archivo de Excel desde GitHub
+# Cargar el archivo de Excel desde GitHub usando el enlace raw
 excel_url = "https://raw.githubusercontent.com/analisisacciones/PuntuacionAcciones/main/Análisis%20acciones.xlsx"
 response = requests.get(excel_url)
 
@@ -72,7 +71,7 @@ def main():
         # Guardar el archivo con los cambios
         workbook.save("Analisis_acciones.xlsx")
 
-        # Obtener el valor calculado de la celda B18
+        # Mostrar el valor de la celda B18 (que es el cálculo)
         puntaje_compra = sheet['B18'].value
         st.write(f"Puntuación de compra de la empresa: {puntaje_compra}")
 
