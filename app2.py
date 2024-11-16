@@ -8,11 +8,8 @@ sheet = workbook.active
 # Leer el valor de la celda AY60
 valor_AY60 = sheet['AY60'].value
 
-# Depuración: Mostrar el tipo de dato de la celda
-st.write("Tipo de valor en AY60:", type(valor_AY60))
-
-# Mostrar el valor de la celda
+# Mostrar el valor de la celda en la interfaz
 if valor_AY60 is not None:
-    st.write("El valor de la celda AY60 es:", valor_AY60)
+    st.write(f"El valor de la celda AY60 es: {valor_AY60}")
 else:
     st.write("La celda AY60 está vacía.")
