@@ -13,14 +13,13 @@ with open("Analisis_acciones.xlsx", "wb") as file:
 
 # Cargar el archivo de Excel con openpyxl
 workbook = openpyxl.load_workbook("Analisis_acciones.xlsx")
-sheet = workbook.active
+sheet = workbook.active  # Asegurarse de que 'sheet' está correctamente asignado
 
 # Función para obtener y dar formato a los datos financieros
 def obtener_datos(ticker_symbol):
     ticker = yf.Ticker(ticker_symbol)
     data = ticker.info
 
-    # Extrae los datos de interés y los devuelve como una lista de valores
     datos = [
         data.get('shortName', 'N/A'),
         data.get('symbol', 'N/A'),
