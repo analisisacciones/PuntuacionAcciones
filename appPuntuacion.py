@@ -85,7 +85,6 @@ def main():
         ]
 
         # Mostrar los valores con etiquetas
-        st.write("Valores de los indicadores:")
         for indicador, valor in zip(indicadores, valores):
             st.write(f"{indicador}: {valor}")
 
