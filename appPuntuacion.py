@@ -78,7 +78,7 @@ def main():
 
             # Reabrir el archivo con openpyxl para leer el valor calculado de AY60 (no la fórmula)
             workbook = openpyxl.load_workbook("Analisis_acciones_actualizado.xlsx", data_only=True)
-            sheet = workbook.active
+            sheet = workbook.active  # Asegurarse de que 'sheet' está correctamente asignado al abrir el archivo
 
             # Leer el valor de la celda AY60
             puntaje_compra = sheet['AY60'].value
