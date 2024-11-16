@@ -1,20 +1,6 @@
-import openpyxl
-import requests
-import os
+import xlwings as xw
 import yfinance as yf
 import streamlit as st
-
-# Cargar el archivo de Excel desde GitHub
-excel_url = "https://raw.githubusercontent.com/analisisacciones/PuntuacionAcciones/main/Analisis_acciones.xlsx"
-response = requests.get(excel_url)
-
-# Guardar el archivo temporalmente
-with open("Analisis_acciones.xlsx", "wb") as file:
-    file.write(response.content)
-
-# Cargar el archivo de Excel
-workbook = openpyxl.load_workbook("Analisis_acciones.xlsx")
-sheet = workbook.active
 
 # Función para obtener y dar formato a los datos financieros
 def obtener_datos(ticker_symbol):
@@ -52,29 +38,34 @@ def main():
         # Obtener los datos
         datos = obtener_datos(ticker_symbol)
 
-        # Actualizar las celdas correspondientes del Excel
-        sheet['B2'] = datos[0]
-        sheet['B3'] = datos[1]
-        sheet['B4'] = datos[2]
-        sheet['B5'] = datos[3]
-        sheet['B6'] = datos[4]
-        sheet['B7'] = datos[5]
-        sheet['B8'] = datos[6]
-        sheet['B9'] = datos[7]
-        sheet['B10'] = datos[8]
-        sheet['B11'] = datos[9]
-        sheet['B12'] = datos[10]
-        sheet['B13'] = datos[11]
-        sheet['B14'] = datos[12]
-        sheet['B15'] = datos[13]
-        sheet['B16'] = datos[14]
+        # Abrir el archivo con xlwings (y no con openpyxl)
+        with xw.App(visible=False) as app:
+            wb = app.books.open("Analisis_acciones.xlsx")
+            sheet = wb.sheets[0]
+            
+            # Actualizar las celdas correspondientes del Excel
+            sheet.range('B2').value = datos[0]
+            sheet.range('B3').value = datos[1]
+            sheet.range('B4').value = datos[2]
+            sheet.range('B5').value = datos[3]
+            sheet.range('B6').value = datos[4]
+            sheet.range('B7').value = datos[5]
+            sheet.range('B8').value = datos[6]
+            sheet.range('B9').value = datos[7]
+            sheet.range('B10').value = datos[8]
+            sheet.range('B11').value = datos[9]
+            sheet.range('B12').value = datos[10]
+            sheet.range('B13').value = datos[11]
+            sheet.range('B14').value = datos[12]
+            sheet.range('B15').value = datos[13]
+            sheet.range('B16').value = datos[14]
 
-        # Guardar el archivo con los cambios
-        workbook.save("Analisis_acciones.xlsx")
-
-        # Mostrar el valor de la celda B18 (que es el cálculo)
-        puntaje_compra = sheet['B18'].value
-        st.write(f"Puntuación de compra de la empresa: {puntaje_compra}")
+            # Obtener el valor calculado de la fórmula en B18
+            puntaje_compra = sheet.range('B18').value
+            st.write(f"Puntuación de compra de la empresa: {puntaje_compra}")
+            
+            # Guardar el archivo con los cambios
+            wb.save()
 
 if __name__ == "__main__":
     main()
