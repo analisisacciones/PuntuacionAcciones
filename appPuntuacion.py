@@ -47,37 +47,38 @@ def main():
     ticker_symbol = st.text_input("Introduce el símbolo de la acción (por ejemplo, TSLA para Tesla):")
 
     if ticker_symbol:
-        # Obtener los datos
-        datos = obtener_datos(ticker_symbol)
+        try:
+            # Obtener los datos
+            datos = obtener_datos(ticker_symbol)
 
-        # Actualizar las celdas correspondientes del Excel con los datos
-        sheet['B2'] = datos[0]
-        sheet['B3'] = datos[1]
-        sheet['B4'] = datos[2]
-        sheet['B5'] = datos[3]
-        sheet['B6'] = datos[4]
-        sheet['B7'] = datos[5]
-        sheet['B8'] = datos[6]
-        sheet['B9'] = datos[7]
-        sheet['B10'] = datos[8]
-        sheet['B11'] = datos[9]
-        sheet['B12'] = datos[10]
-        sheet['B13'] = datos[11]
-        sheet['B14'] = datos[12]
-        sheet['B15'] = datos[13]
-        sheet['B16'] = datos[14]
-        sheet['B17'] = datos[15]
+            # Verificar que los datos no sean vacíos
+            if not any(dato == 'N/A' for dato in datos):
+                # Actualizar las celdas correspondientes del Excel con los datos
+                sheet['B2'] = datos[0]
+                sheet['B3'] = datos[1]
+                sheet['B4'] = datos[2]
+                sheet['B5'] = datos[3]
+                sheet['B6'] = datos[4]
+                sheet['B7'] = datos[5]
+                sheet['B8'] = datos[6]
+                sheet['B9'] = datos[7]
+                sheet['B10'] = datos[8]
+                sheet['B11'] = datos[9]
+                sheet['B12'] = datos[10]
+                sheet['B13'] = datos[11]
+                sheet['B14'] = datos[12]
+                sheet['B15'] = datos[13]
+                sheet['B16'] = datos[14]
+                sheet['B17'] = datos[15]
 
-        # Guardar el archivo con los cambios
-        workbook.save("Analisis_acciones_actualizado.xlsx")
-
-        # Recargar el archivo actualizado para leer el resultado de AY60
-        workbook = openpyxl.load_workbook("Analisis_acciones_actualizado.xlsx")
-        sheet = workbook.active
-
-        # Leer el valor calculado en AY60
-        resultado_ay60 = sheet['AY60'].value
-        st.write(f"Resultado en AY60: {resultado_ay60}")
+                # Guardar el archivo con los cambios
+                workbook.save("Analisis_acciones_actualizado.xlsx")
+                
+                st.success("Datos actualizados correctamente.")
+            else:
+                st.error("Los datos obtenidos contienen valores no válidos.")
+        except Exception as e:
+            st.error(f"Error al obtener los datos: {e}")
 
         # Leer los valores de las celdas de B2 a B17
         valores = [sheet[f'B{i}'].value for i in range(2, 18)]
