@@ -3,7 +3,7 @@ import requests
 import yfinance as yf
 import streamlit as st
 
-# Cargar el archivo de Excel desde GitHub (si ya está calculado)
+# Cargar el archivo de Excel desde GitHub
 excel_url = "https://raw.githubusercontent.com/analisisacciones/PuntuacionAcciones/main/Analisis_acciones.xlsx"
 response = requests.get(excel_url)
 
@@ -13,7 +13,7 @@ with open("Analisis_acciones.xlsx", "wb") as file:
 
 # Cargar el archivo de Excel con openpyxl
 workbook = openpyxl.load_workbook("Analisis_acciones.xlsx")
-sheet = workbook.active  # Asegurarse de que 'sheet' está correctamente asignado
+sheet = workbook.active
 
 # Función para obtener y dar formato a los datos financieros
 def obtener_datos(ticker_symbol):
@@ -51,41 +51,39 @@ def main():
         datos = obtener_datos(ticker_symbol)
 
         # Actualizar las celdas correspondientes del Excel con los datos
-        try:
-            sheet['B2'] = datos[0]
-            sheet['B3'] = datos[1]
-            sheet['B4'] = datos[2]
-            sheet['B5'] = datos[3]
-            sheet['B6'] = datos[4]
-            sheet['B7'] = datos[5]
-            sheet['B8'] = datos[6]
-            sheet['B9'] = datos[7]
-            sheet['B10'] = datos[8]
-            sheet['B11'] = datos[9]
-            sheet['B12'] = datos[10]
-            sheet['B13'] = datos[11]
-            sheet['B14'] = datos[12]
-            sheet['B15'] = datos[13]
-            sheet['B16'] = datos[14]
-            sheet['B17'] = datos[15]  # Rellenar B17 con la última fecha de actualización
+        sheet['B2'] = datos[0]
+        sheet['B3'] = datos[1]
+        sheet['B4'] = datos[2]
+        sheet['B5'] = datos[3]
+        sheet['B6'] = datos[4]
+        sheet['B7'] = datos[5]
+        sheet['B8'] = datos[6]
+        sheet['B9'] = datos[7]
+        sheet['B10'] = datos[8]
+        sheet['B11'] = datos[9]
+        sheet['B12'] = datos[10]
+        sheet['B13'] = datos[11]
+        sheet['B14'] = datos[12]
+        sheet['B15'] = datos[13]
+        sheet['B16'] = datos[14]
 
-            # Guardar el archivo con los cambios
-            workbook.save("Analisis_acciones_actualizado.xlsx")
+        # Actualizar la celda B17 con la última fecha de actualización
+        sheet['B17'] = datos[15]
 
-            # Imprimir los valores desde la celda B2 hasta la B17
-            for row in range(2, 18):
-                st.write(f"Valor en B{row}: {sheet[f'B{row}'].value}")
+        # Guardar el archivo con los cambios
+        workbook.save("Analisis_acciones_actualizado.xlsx")
 
-            # Reabrir el archivo con openpyxl para leer el valor calculado de AY60 (no la fórmula)
-            workbook = openpyxl.load_workbook("Analisis_acciones_actualizado.xlsx", data_only=True)
-            sheet = workbook.active  # Asegurarse de que 'sheet' está correctamente asignado al abrir el archivo
+        # Leer los valores de las celdas de B2 a B17
+        valores = [sheet[f'B{i}'].value for i in range(2, 18)]
 
-            # Leer el valor de la celda AY60
-            puntaje_compra = sheet['AY60'].value
-            st.write(f"Puntuación de compra de la empresa: {puntaje_compra}")
+        # Mostrar los valores en Streamlit
+        st.write("Valores de las celdas B2 a B17:")
+        for i, valor in enumerate(valores, start=2):
+            st.write(f"B{i}: {valor}")
 
-        except Exception as e:
-            st.error(f"Error al procesar los datos: {e}")
+        # Subir el archivo a la nube (por ejemplo, Google Drive)
+        # Aquí debes integrar el código de autenticación y subida a la nube.
+        # Un ejemplo con Google Drive sería usar 'pydrive' o 'googleapiclient'.
 
 if __name__ == "__main__":
     main()
