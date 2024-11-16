@@ -8,5 +8,8 @@ sheet = workbook.active
 # Leer el valor numérico de la celda AY60
 valor_ay60 = sheet['AY60'].value
 
-# Imprimir el valor
-st.write("El valor de la celda AY60 es:", valor_ay60)
+# Verificar si la celda no está vacía y mostrar el valor
+if valor_ay60 is not None:
+    st.write("El valor de la celda AY60 es:", valor_ay60)
+else:
+    st.write("La celda AY60 está vacía.")
