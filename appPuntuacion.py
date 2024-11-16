@@ -1,6 +1,5 @@
 import openpyxl
 import requests
-import os
 import yfinance as yf
 import streamlit as st
 
@@ -68,6 +67,7 @@ def main():
         sheet['B14'] = datos[12]
         sheet['B15'] = datos[13]
         sheet['B16'] = datos[14]
+        sheet['B17'] = datos[15]  # Inserta la fecha de actualización en B17
 
         # Guardar el archivo con los cambios
         workbook.save("Analisis_acciones.xlsx")
@@ -78,3 +78,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
