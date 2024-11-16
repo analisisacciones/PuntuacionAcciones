@@ -20,7 +20,7 @@ def obtener_datos(ticker_symbol):
         round(data.get('ebitda', 'N/A'), 2) if data.get('ebitda') is not None else "N/A",
         f"{round(data.get('earningsQuarterlyGrowth', 'N/A') * 100, 2)}%" if data.get('earningsQuarterlyGrowth') is not None else "N/A",
         round(data.get('beta', 'N/A'), 2) if data.get('beta') is not None else "N/A",
-        f"{round(data.get('dividendYield', 'N/A') * 100, 2)}%" if data.get('dividendYield') is not None else "N/A",
+        f"{round(data.get('dividendYield', 0) * 100, 2)}%" if data.get('dividendYield', 0) is not None else "N/A",  # Cambio aquí
         round(data.get('currentPrice', 'N/A'), 2) if data.get('currentPrice') is not None else "N/A",
         round(data.get('targetMeanPrice', 'N/A'), 2) if data.get('targetMeanPrice') is not None else "N/A",
         ticker.history(period="1d").index[-1].strftime('%Y-%m-%d') if not ticker.history(period="1d").empty else "N/A"
