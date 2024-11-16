@@ -71,6 +71,14 @@ def main():
         # Guardar el archivo con los cambios
         workbook.save("Analisis_acciones_actualizado.xlsx")
 
+        # Recargar el archivo actualizado para leer el resultado de AY60
+        workbook = openpyxl.load_workbook("Analisis_acciones_actualizado.xlsx")
+        sheet = workbook.active
+
+        # Leer el valor calculado en AY60
+        resultado_ay60 = sheet['AY60'].value
+        st.write(f"Resultado en AY60: {resultado_ay60}")
+
         # Leer los valores de las celdas de B2 a B17
         valores = [sheet[f'B{i}'].value for i in range(2, 18)]
 
