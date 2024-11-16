@@ -1,10 +1,9 @@
-import xlwings as xw
 import openpyxl
 import requests
 import yfinance as yf
 import streamlit as st
 
-# Cargar el archivo de Excel desde GitHub
+# Cargar el archivo de Excel desde GitHub (si ya está calculado)
 excel_url = "https://raw.githubusercontent.com/analisisacciones/PuntuacionAcciones/main/Analisis_acciones.xlsx"
 response = requests.get(excel_url)
 
@@ -12,15 +11,7 @@ response = requests.get(excel_url)
 with open("Analisis_acciones.xlsx", "wb") as file:
     file.write(response.content)
 
-# Abrir el archivo con xlwings para evaluar las fórmulas
-with xw.App(visible=False) as app:
-    workbook = app.books.open("Analisis_acciones.xlsx")
-    sheet = workbook.sheets[0]
-
-    # Aquí se permite que Excel evalúe las fórmulas (se guardan los resultados)
-    workbook.save()
-
-# Ahora, puedes usar openpyxl para leer el archivo con las fórmulas ya calculadas
+# Cargar el archivo de Excel con openpyxl
 workbook = openpyxl.load_workbook("Analisis_acciones.xlsx")
 sheet = workbook.active
 
@@ -80,8 +71,8 @@ def main():
         # Guardar el archivo con los cambios
         workbook.save("Analisis_acciones_actualizado.xlsx")
 
-        # Leer el valor de la celda AY60 después de que Excel lo haya calculado
-        puntaje_compra = sheet.range('AY60').value
+        # Leer el valor de la celda AY60
+        puntaje_compra = sheet['AY60'].value
         st.write(f"Puntuación de compra de la empresa: {puntaje_compra}")
 
 if __name__ == "__main__":
