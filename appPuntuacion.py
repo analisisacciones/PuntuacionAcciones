@@ -2,7 +2,6 @@ import openpyxl
 import requests
 import yfinance as yf
 import streamlit as st
-import os
 
 # Cargar el archivo de Excel desde GitHub
 excel_url = "https://raw.githubusercontent.com/analisisacciones/PuntuacionAcciones/main/Analisis_acciones.xlsx"
@@ -74,6 +73,7 @@ def main():
 
                 # Guardar el archivo con los cambios
                 workbook.save("Analisis_acciones_actualizado.xlsx")
+
                 st.success("Datos actualizados correctamente.")
             else:
                 st.error("Los datos obtenidos contienen valores no válidos.")
@@ -96,9 +96,6 @@ def main():
         # Mostrar los valores con etiquetas
         for indicador, valor in zip(indicadores, valores):
             st.write(f"{indicador}: {valor}")
-
-        # Al final de app1.py, después de guardar el archivo, ejecutar app2
-        os.system('streamlit run app2.py')
 
 if __name__ == "__main__":
     main()
