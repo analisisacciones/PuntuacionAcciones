@@ -67,16 +67,12 @@ def main():
         sheet['B14'] = datos[12]
         sheet['B15'] = datos[13]
         sheet['B16'] = datos[14]
-         sheet['B17'] = datos[15]
+        sheet['B17'] = datos[15]
 
         # Guardar el archivo con los cambios
         workbook.save("Analisis_acciones_actualizado.xlsx")
 
-        # Reabrir el archivo con data_only=True para obtener los valores calculados
-        workbook = openpyxl.load_workbook("Analisis_acciones_actualizado.xlsx", data_only=True)
-        sheet = workbook.active
-
-        # Leer el valor de la celda AY60 (el valor calculado por Excel)
+        # Leer el valor de la celda AY60
         puntaje_compra = sheet['AY60'].value
         st.write(f"Puntuación de compra de la empresa: {puntaje_compra}")
 
