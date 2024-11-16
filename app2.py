@@ -1,11 +1,11 @@
 import xlwings as xw
 import streamlit as st
 
-# Abre el archivo de Excel
+# Abrir el archivo Excel con xlwings
 wb = xw.Book('Analisis_acciones_actualizado.xlsx')
 sheet = wb.sheets[0]
 
-# Obtener el valor calculado de la celda AY60
+# Obtener el valor de la celda AY60
 valor_ay60 = sheet.range('AY60').value
 
 # Mostrar el valor en la interfaz de Streamlit
