@@ -73,6 +73,9 @@ def main():
 
                 # Guardar el archivo con los cambios
                 workbook.save("Analisis_acciones_actualizado.xlsx")
+# Al final de app1.py, después de guardar el archivo
+os.system('streamlit run app2.py')
+
                 
                 st.success("Datos actualizados correctamente.")
             else:
