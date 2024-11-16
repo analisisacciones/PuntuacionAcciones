@@ -31,7 +31,7 @@ def obtener_datos(ticker_symbol):
         round(data.get('totalCash', 'N/A'), 2) if data.get('totalCash') else "N/A",
         round(data.get('totalDebt', 'N/A'), 2) if data.get('totalDebt') else "N/A",
         round(data.get('ebitda', 'N/A'), 2) if data.get('ebitda') else "N/A",
-        round(data.get('earningsQuarterlyGrowth', 'N/A'), 2) if data.get('earningsQuarterlyGrowth') else "N/A",
+        round(data.get('earningsQuarterlyGrowth', 'N/A') * 100, 2) if data.get('earningsQuarterlyGrowth') else "N/A",
         round(data.get('beta', 'N/A'), 2) if data.get('beta') else "N/A",
         round(data.get('dividendYield', 'N/A') * 100, 2) if data.get('dividendYield') else "N/A",
         round(data.get('currentPrice', 'N/A'), 2) if data.get('currentPrice') else "N/A",
@@ -79,7 +79,7 @@ def main():
             "Nombre corto", "Símbolo", "P/E trailing", "P/E forward",
             "Margen de beneficio (%)", "Relación empresa/EBITDA",
             "Porcentaje de insiders (%)", "Efectivo total",
-            "Deuda total", "EBITDA", "Crecimiento de ganancias trimestrales",
+            "Deuda total", "EBITDA", "Crecimiento de ganancias trimestrales (%)",
             "Beta", "Rendimiento del dividendo (%)", "Precio actual",
             "Precio objetivo promedio", "Última fecha de actualización"
         ]
