@@ -66,8 +66,6 @@ def main():
         sheet['B14'] = datos[12]
         sheet['B15'] = datos[13]
         sheet['B16'] = datos[14]
-
-        # Actualizar la celda B17 con la última fecha de actualización
         sheet['B17'] = datos[15]
 
         # Guardar el archivo con los cambios
@@ -76,14 +74,20 @@ def main():
         # Leer los valores de las celdas de B2 a B17
         valores = [sheet[f'B{i}'].value for i in range(2, 18)]
 
-        # Mostrar los valores en Streamlit
-        st.write("Valores de las celdas B2 a B17:")
-        for i, valor in enumerate(valores, start=2):
-            st.write(f"B{i}: {valor}")
+        # Nombres de los indicadores correspondientes a cada celda
+        indicadores = [
+            "Nombre corto", "Símbolo", "P/E trailing", "P/E forward",
+            "Margen de beneficio (%)", "Relación empresa/EBITDA",
+            "Porcentaje de insiders (%)", "Efectivo total",
+            "Deuda total", "EBITDA", "Crecimiento de ganancias trimestrales",
+            "Beta", "Rendimiento del dividendo (%)", "Precio actual",
+            "Precio objetivo promedio", "Última fecha de actualización"
+        ]
 
-        # Subir el archivo a la nube (por ejemplo, Google Drive)
-        # Aquí debes integrar el código de autenticación y subida a la nube.
-        # Un ejemplo con Google Drive sería usar 'pydrive' o 'googleapiclient'.
+        # Mostrar los valores con etiquetas
+        st.write("Valores de los indicadores:")
+        for indicador, valor in zip(indicadores, valores):
+            st.write(f"{indicador}: {valor}")
 
 if __name__ == "__main__":
     main()
