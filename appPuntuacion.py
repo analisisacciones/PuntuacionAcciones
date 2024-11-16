@@ -73,32 +73,11 @@ def main():
 
                 # Guardar el archivo con los cambios
                 workbook.save("Analisis_acciones_actualizado.xlsx")
-# Al final de app1.py, después de guardar el archivo
-os.system('streamlit run app2.py')
-
-                
                 st.success("Datos actualizados correctamente.")
             else:
                 st.error("Los datos obtenidos contienen valores no válidos.")
         except Exception as e:
             st.error(f"Error al obtener los datos: {e}")
-
-        # Leer los valores de las celdas de B2 a B17
-        valores = [sheet[f'B{i}'].value for i in range(2, 18)]
-
-        # Nombres de los indicadores correspondientes a cada celda
-        indicadores = [
-            "Nombre corto", "Símbolo", "P/E trailing", "P/E forward",
-            "Margen de beneficio", "Relación empresa/EBITDA",
-            "Porcentaje de insiders", "Efectivo total",
-            "Deuda total", "EBITDA", "Crecimiento de ganancias trimestrales",
-            "Beta", "Rendimiento del dividendo", "Precio actual",
-            "Precio objetivo promedio", "Última fecha de actualización"
-        ]
-
-        # Mostrar los valores con etiquetas
-        for indicador, valor in zip(indicadores, valores):
-            st.write(f"{indicador}: {valor}")
-
+            
 if __name__ == "__main__":
     main()
