@@ -78,6 +78,27 @@ def main():
                 st.error("Los datos obtenidos contienen valores no válidos.")
         except Exception as e:
             st.error(f"Error al obtener los datos: {e}")
-            
+
+        # Leer los valores de las celdas de B2 a B17
+        valores = [sheet[f'B{i}'].value for i in range(2, 18)]
+
+        # Nombres de los indicadores correspondientes a cada celda
+        indicadores = [
+            "Nombre corto", "Símbolo", "P/E trailing", "P/E forward",
+            "Margen de beneficio", "Relación empresa/EBITDA",
+            "Porcentaje de insiders", "Efectivo total",
+            "Deuda total", "EBITDA", "Crecimiento de ganancias trimestrales",
+            "Beta", "Rendimiento del dividendo", "Precio actual",
+            "Precio objetivo promedio", "Última fecha de actualización"
+        ]
+
+        # Mostrar los valores con etiquetas
+        for indicador, valor in zip(indicadores, valores):
+            st.write(f"{indicador}: {valor}")
+
+        # Imprimir el valor de B18 para mostrar la puntuación
+        puntuacion = sheet['B18'].value
+        st.write(f"Puntuación de la acción (B18): {puntuacion}")
+
 if __name__ == "__main__":
     main()
