@@ -73,7 +73,7 @@ def main():
 
                 # Guardar el archivo con los cambios
                 workbook.save("Analisis_acciones_actualizado.xlsx")
-
+                
                 st.success("Datos actualizados correctamente.")
             else:
                 st.error("Los datos obtenidos contienen valores no válidos.")
