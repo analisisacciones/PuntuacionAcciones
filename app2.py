@@ -5,9 +5,13 @@ import streamlit as st
 workbook = openpyxl.load_workbook("Analisis_acciones_actualizado.xlsx")
 sheet = workbook.active
 
-# Leer los valores de las celdas
+# Leer los valores de las celdas B2 a B17 y B18
 valores = [sheet[f'B{i}'].value for i in range(2, 18)]
 puntuacion = sheet['B18'].value
+
+# Verificar si los valores se están cargando
+st.write("Valores cargados de B2 a B17:")
+st.write(valores)
 
 # Nombres de los indicadores correspondientes a cada celda
 indicadores = [
