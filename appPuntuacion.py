@@ -73,7 +73,7 @@ def main():
         workbook.save("Analisis_acciones.xlsx")
 
         # Mostrar el valor de la celda B18 (que es el cálculo)
-        puntaje_compra = sheet['B18'].value
+        puntaje_compra = sheet['AY60'].value
         st.write(f"Puntuación de compra de la empresa: {puntaje_compra}")
 
 if __name__ == "__main__":
