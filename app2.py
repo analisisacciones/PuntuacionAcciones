@@ -5,11 +5,14 @@ import streamlit as st
 workbook = openpyxl.load_workbook("Analisis_acciones_actualizado.xlsx")
 sheet = workbook.active
 
-# Leer el valor numérico de la celda AY60
-valor_ay60 = sheet['AY60'].value
+# Leer el valor de la celda AY60
+valor_AY60 = sheet['AY60'].value
 
-# Verificar si la celda no está vacía y mostrar el valor
-if valor_ay60 is not None:
-    st.write("El valor de la celda AY60 es:", valor_ay60)
+# Depuración: Mostrar el tipo de dato de la celda
+st.write("Tipo de valor en AY60:", type(valor_AY60))
+
+# Mostrar el valor de la celda
+if valor_AY60 is not None:
+    st.write("El valor de la celda AY60 es:", valor_AY60)
 else:
     st.write("La celda AY60 está vacía.")
