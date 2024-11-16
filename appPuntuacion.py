@@ -411,25 +411,22 @@ def main():
             precio_actual = datos["Precio actual"]
             precio_objetivo_promedio = datos["Precio objetivo promedio"]
             
-            # Ponderar las puntuaciones
-            puntuaciones = [
-                calcular_pe_trailing(pe_trailing),
-                calcular_analisis_pe_forward(pe_forward, pe_trailing),
-                calcular_pe_forward(pe_forward),
-                calcular_margen_beneficio(margen_beneficio),
-                calcular_relacion_empresa_ebitda(relacion_ebitda),
-                porcentaje_insiders(porcentaje_insiders_valor),
-                calcular_crecimiento_ganancias(crecimiento_ganancias),
-                calcular_beta(beta),
-                calcular_dividendos(dividendos),
-                calcular_cash_deuda(efectivo_total, deuda_total),
-          
+           # Ponderar las puntuaciones
+puntuaciones = [
+    calcular_pe_trailing(pe_trailing),
+    calcular_analisis_pe_forward(pe_forward, pe_trailing),
+    calcular_pe_forward(pe_forward),
+    calcular_margen_beneficio(margen_beneficio),
+    calcular_relacion_empresa_ebitda(relacion_ebitda),
+    porcentaje_insiders(porcentaje_insiders_valor),
+    calcular_crecimiento_ganancias(crecimiento_ganancias),
+    calcular_beta(beta),
+    calcular_dividendos(dividendos),
+    calcular_cash_deuda(efectivo_total, deuda_total),
+    calcular_deuda_ebitda(deuda_total, ebitda),
+    calcular_precio_esperado(precio_actual, precio_objetivo_promedio)
+]
 
-
-
-                calcular_deuda_ebitda(deuda_total, ebitda),
-                calcular_precio_esperado(precio_actual, precio_objetivo_promedio)
-            ]
             
             # Calcular la puntuación final ponderada
             puntuacion_final = calcular_puntuacion_final(puntuaciones)
