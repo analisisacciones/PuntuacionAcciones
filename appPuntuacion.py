@@ -2,6 +2,7 @@ import openpyxl
 import requests
 import yfinance as yf
 import streamlit as st
+import os
 
 # Cargar el archivo de Excel desde GitHub
 excel_url = "https://raw.githubusercontent.com/analisisacciones/PuntuacionAcciones/main/Analisis_acciones.xlsx"
@@ -96,9 +97,8 @@ def main():
         for indicador, valor in zip(indicadores, valores):
             st.write(f"{indicador}: {valor}")
 
-        # Imprimir el valor de B18 para mostrar la puntuación
-        puntuacion = sheet['B18'].value
-        st.write(f"Puntuación de la acción (B18): {puntuacion}")
+        # Al final de app1.py, después de guardar el archivo, ejecutar app2
+        os.system('streamlit run app2.py')
 
 if __name__ == "__main__":
     main()
