@@ -5,11 +5,25 @@ import streamlit as st
 workbook = openpyxl.load_workbook("Analisis_acciones_actualizado.xlsx")
 sheet = workbook.active
 
-# Leer el valor de la celda AY60
-valor_AY60 = sheet['AY60'].value
+# Leer los valores de las celdas
+valores = [sheet[f'B{i}'].value for i in range(2, 18)]
+puntuacion = sheet['B18'].value
 
-# Mostrar el valor de la celda en la interfaz
-if valor_AY60 is not None:
-    st.write(f"El valor de la celda AY60 es: {valor_AY60}")
+# Nombres de los indicadores correspondientes a cada celda
+indicadores = [
+    "Nombre corto", "Símbolo", "P/E trailing", "P/E forward",
+    "Margen de beneficio", "Relación empresa/EBITDA", "Porcentaje de insiders",
+    "Efectivo total", "Deuda total", "EBITDA", "Crecimiento de ganancias trimestrales",
+    "Beta", "Rendimiento del dividendo", "Precio actual", "Precio objetivo promedio", 
+    "Última fecha de actualización"
+]
+
+# Mostrar los valores con etiquetas
+for indicador, valor in zip(indicadores, valores):
+    st.write(f"{indicador}: {valor}")
+
+# Mostrar la puntuación de la acción
+if puntuacion is not None:
+    st.write(f"Puntuación de la acción (de B18): {puntuacion}")
 else:
-    st.write("La celda AY60 está vacía.")
+    st.write("No hay puntuación disponible en B18.")
