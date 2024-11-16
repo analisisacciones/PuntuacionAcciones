@@ -67,12 +67,16 @@ def main():
         sheet['B14'] = datos[12]
         sheet['B15'] = datos[13]
         sheet['B16'] = datos[14]
-        sheet['B17'] = datos[15]  # Inserta la fecha de actualización en B17
+        sheet['B17'] = datos[15]
 
         # Guardar el archivo con los cambios
         workbook.save("Analisis_acciones.xlsx")
 
-        # Mostrar el valor de la celda B18 (que es el cálculo)
+        # Reabrir el archivo para que se calculen las fórmulas
+        workbook = openpyxl.load_workbook("Analisis_acciones.xlsx", data_only=True)
+        sheet = workbook.active
+
+        # Mostrar el valor de la celda AY60 (que es el cálculo)
         puntaje_compra = sheet['AY60'].value
         st.write(f"Puntuación de compra de la empresa: {puntaje_compra}")
 
